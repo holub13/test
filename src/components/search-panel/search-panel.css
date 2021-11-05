@@ -1,9 +1,10 @@
 .search-panel {
-  margin: 1rem 0;
+  margin: 3rem 0;
+  font-family: Georgia, serif;
 }
 
 .search-panel .search-input {
   width: auto;
   flex-grow: 1;
-  margin-right: 3px;
+  margin: 3px;
 }

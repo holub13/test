@@ -1,7 +1,7 @@
 .app-header {
   align-items: flex-end;
   justify-content: space-between;
-
+  font-family: Georgia, serif;
 }
 
 .app-header h1 {
