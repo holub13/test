@@ -11,6 +11,7 @@ function App() {
     { label: "That's Ok", important: false, id: "qdfg" },
     { label: "I wanna change my life...", important: false, id: "vbnvbn" }
   ];
+
   return (
     <div className="app">
       <AppHeader />
