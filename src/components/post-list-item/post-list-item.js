@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./post-list-item.css";
 
 // export default class PostListItem extends Component {
@@ -60,6 +60,7 @@ import "./post-list-item.css";
 export default function PostListItem(elements) {
   let classNames = "app-list-item d-flex justify-content-between";
   const { label, deleteItem } = elements;
+
   const [state, setState] = useState({
     important: false,
     like: false
