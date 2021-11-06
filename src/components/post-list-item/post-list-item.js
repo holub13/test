@@ -59,9 +59,7 @@ import "./post-list-item.css";
 
 export default function PostListItem(elements) {
   let classNames = "app-list-item d-flex justify-content-between";
-  const { id } = elements;
-  console.log(Array.isArray(elements));
-
+  const { label, deleteItem } = elements;
   const [state, setState] = useState({
     important: false,
     like: false
@@ -83,16 +81,11 @@ export default function PostListItem(elements) {
   if (like) {
     classNames += " like";
   }
-  function deleteItem() {
-    const index = elements.findIndex((elem) => elem.id === id);
-    elements.splice(index, 1);
-    // console.log(id);
-  }
 
   return (
     <div className={classNames}>
       <span className="app-list-item-label" onClick={onLike}>
-        {elements.label}
+        {label}
       </span>
       <div className="d-flex justify-content-center align-items-center">
         <button type="button" className="btn-star btn-sm" onClick={onImportant}>

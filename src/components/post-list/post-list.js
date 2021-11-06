@@ -3,13 +3,23 @@ import "./post-list.css";
 import PostListItem from "../post-list-item/post-list-item";
 
 const PostList = ({ posts }) => {
-  const arr = posts;
   const elements = posts.map((item) => {
     const { id, ...itemProps } = item;
+
+    function deleteItem() {
+      const index = posts.findIndex((elem) => elem.id === id);
+      posts.splice(index, 1);
+      console.log(id);
+    }
+
     return (
       <li key={id} className="list-group-item">
-        {/* <li key={item.id} className="list-group-item"> */}
-        <PostListItem {...itemProps} id={id} arr={arr} />
+        <PostListItem
+          {...itemProps}
+          id={id}
+          posts={posts}
+          deleteItem={deleteItem}
+        />
         {/* <PostListItem label={item.label} important={item.important} /> */}
       </li>
     );
