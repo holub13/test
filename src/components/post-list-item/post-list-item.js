@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./post-list-item.css";
 
 // export default class PostListItem extends Component {
@@ -57,27 +57,15 @@ import "./post-list-item.css";
 //   }
 // }
 
-export default function PostListItem({ item, onHahdleClick }) {
-  let classNames = "app-list-item d-flex justify-content-between";
-  const { label, id } = item;
-  const [state, setState] = useState({
-    important: false,
-    like: false
-  });
-  const { important, like } = state;
-
-  function onImportant() {
-    setState(({ important }) => ({
-      important: !important
-    }));
-  }
-  function onLike() {
-    setState(({ like }) => ({
-      // ...state,
-      like: !like
-    }));
-  }
-  if (important) {
+export default function PostListItem({
+  item,
+  onHahdleClick,
+  onToggleImportant,
+  onToggleLike,
+  classNames
+}) {
+  const { label, id, important, like } = item;
+  if (important || (important && like)) {
     classNames += " important";
   }
   if (like) {
@@ -87,14 +75,14 @@ export default function PostListItem({ item, onHahdleClick }) {
   return (
     <li key={id} className="list-group-item">
       <div className={classNames}>
-        <span className="app-list-item-label" onClick={onLike}>
+        <span className="app-list-item-label" onClick={() => onToggleLike(id)}>
           {label}
         </span>
         <div className="d-flex justify-content-center align-items-center">
           <button
             type="button"
             className="btn-star btn-sm"
-            onClick={onImportant}
+            onClick={() => onToggleImportant(id)}
           >
             <i className="fa fa-star" />
           </button>

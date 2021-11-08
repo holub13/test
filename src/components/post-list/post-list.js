@@ -1,48 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import "./post-list.css";
 import PostListItem from "../post-list-item/post-list-item";
 import PostAddForm from "../post-add-form/post-add-form";
 
-const PostList = ({ posts }) => {
-  const [postList, setPostList] = useState(posts);
-  const deletePost = (id) => {
-    const filteredList = postList.filter((item) => item.id !== id);
-    setPostList(filteredList);
-  };
-  // let value = "sdf";
-  const addPost = (value) => {
-    const newList = [
-      ...postList,
-      { label: "value", important: false, id: Math.random() }
-    ];
-    setPostList(newList);
-  };
-
-  // const elements = posts.map((item) => {
-  //   const { id, ...itemProps } = item;
-  //   console.log()
-  //   return (
-  //     <li key={id} className="list-group-item">
-  //       <PostListItem item={item} onHahdleClick={deletePost} />
-  //       {/* <PostListItem label={item.label} important={item.important} /> */}
-  //     </li>
-  //   );
-  // });
-  // return <ul className="app-list list-group">{elements}</ul>;
+const PostList = ({
+  posts,
+  onDeletePost,
+  onAddPost,
+  onToggleImportant,
+  onToggleLike,
+  classNames
+}) => {
   return (
     <>
       <ul>
-        {postList.map((item, index) => {
+        {posts.map((item) => {
           return (
             <PostListItem
-              key={`${item.id}-${index}`}
+              key={item.id}
               item={item}
-              onHahdleClick={deletePost}
+              onHahdleClick={onDeletePost}
+              onToggleImportant={onToggleImportant}
+              onToggleLike={onToggleLike}
+              classNames={classNames}
             />
           );
         })}
       </ul>
-      <PostAddForm onAddPost={() => addPost()} /*text={value}*/ />
+      <PostAddForm onAddNewPost={() => onAddPost()} />
     </>
   );
 };
