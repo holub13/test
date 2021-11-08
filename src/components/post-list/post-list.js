@@ -1,12 +1,12 @@
 import React from "react";
 import "./post-list.css";
 import PostListItem from "../post-list-item/post-list-item";
-import PostAddForm from "../post-add-form/post-add-form";
+// import PostAddForm from "../post-add-form/post-add-form";
 
 const PostList = ({
   posts,
   onDeletePost,
-  onAddPost,
+  // onAddPost,
   onToggleImportant,
   onToggleLike,
   classNames
@@ -27,7 +27,7 @@ const PostList = ({
           );
         })}
       </ul>
-      <PostAddForm onAddNewPost={() => onAddPost()} />
+      {/* <PostAddForm onAddNewPost={() => onAddPost()} /> */}
     </>
   );
 };

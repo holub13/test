@@ -3,7 +3,7 @@ import "./app.css";
 import AppHeader from "../app-header/app-header";
 import SearchPanel from "../search-panel/search-panel";
 import PostList from "../post-list/post-list";
-// import "../post-list-item/post-list-item.css";
+import PostAddForm from "../post-add-form/post-add-form";
 
 export default function App() {
   const [data, setData] = useState([
@@ -28,10 +28,10 @@ export default function App() {
   ]);
   let classNames = "app-list-item d-flex justify-content-between";
 
-  const addPost = () => {
+  const addPost = (value) => {
     const newData = [
       ...data,
-      { label: "value", important: false, like: false, id: Math.random() }
+      { label: value, important: false, like: false, id: Math.random() }
     ];
     setData(newData);
   };
@@ -74,11 +74,12 @@ export default function App() {
       <PostList
         posts={data}
         onDeletePost={deletePost}
-        onAddPost={addPost}
+        // onAddPost={addPost}
         onToggleImportant={onToggleImportant}
         onToggleLike={onToggleLike}
         classNames={classNames}
       />
+      <PostAddForm onAddNewPost={addPost} /*onValueChange={onValueChange}*/ />
     </div>
   );
 }
