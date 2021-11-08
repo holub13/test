@@ -57,15 +57,15 @@ import "./post-list-item.css";
 //   }
 // }
 
-export default function PostListItem(elements) {
+export default function PostListItem({ item, onHahdleClick }) {
   let classNames = "app-list-item d-flex justify-content-between";
-  const { label, deleteItem } = elements;
-
+  const { label, id } = item;
   const [state, setState] = useState({
     important: false,
     like: false
   });
   const { important, like } = state;
+
   function onImportant() {
     setState(({ important }) => ({
       important: !important
@@ -73,6 +73,7 @@ export default function PostListItem(elements) {
   }
   function onLike() {
     setState(({ like }) => ({
+      // ...state,
       like: !like
     }));
   }
@@ -84,19 +85,29 @@ export default function PostListItem(elements) {
   }
 
   return (
-    <div className={classNames}>
-      <span className="app-list-item-label" onClick={onLike}>
-        {label}
-      </span>
-      <div className="d-flex justify-content-center align-items-center">
-        <button type="button" className="btn-star btn-sm" onClick={onImportant}>
-          <i className="fa fa-star" />
-        </button>
-        <button type="button" className="btn-trash btn-sm" onClick={deleteItem}>
-          <i className="fa fa-trash" />
-        </button>
-        <i className="fa fa-heart" />
+    <li key={id} className="list-group-item">
+      <div className={classNames}>
+        <span className="app-list-item-label" onClick={onLike}>
+          {label}
+        </span>
+        <div className="d-flex justify-content-center align-items-center">
+          <button
+            type="button"
+            className="btn-star btn-sm"
+            onClick={onImportant}
+          >
+            <i className="fa fa-star" />
+          </button>
+          <button
+            type="button"
+            className="btn-trash btn-sm"
+            onClick={() => onHahdleClick(id)}
+          >
+            <i className="fa fa-trash" />
+          </button>
+          <i className="fa fa-heart" />
+        </div>
       </div>
-    </div>
+    </li>
   );
 }

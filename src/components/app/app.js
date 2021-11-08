@@ -3,7 +3,6 @@ import "./app.css";
 import AppHeader from "../app-header/app-header";
 import SearchPanel from "../search-panel/search-panel";
 import PostList from "../post-list/post-list";
-import PostAddForm from "../post-add-form/post-add-form";
 
 function App() {
   const data = [
@@ -17,7 +16,6 @@ function App() {
       <AppHeader />
       <SearchPanel />
       <PostList posts={data} />
-      <PostAddForm />
     </div>
   );
 }
