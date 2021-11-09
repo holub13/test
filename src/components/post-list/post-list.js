@@ -1,19 +1,17 @@
 import React from "react";
 import "./post-list.css";
 import PostListItem from "../post-list-item/post-list-item";
-// import PostAddForm from "../post-add-form/post-add-form";
 
 const PostList = ({
   posts,
   onDeletePost,
-  // onAddPost,
   onToggleImportant,
   onToggleLike,
   classNames
 }) => {
   return (
     <>
-      <ul>
+      <ul className="list-group">
         {posts.map((item) => {
           return (
             <PostListItem
@@ -27,7 +25,6 @@ const PostList = ({
           );
         })}
       </ul>
-      {/* <PostAddForm onAddNewPost={() => onAddPost()} /> */}
     </>
   );
 };

@@ -6,7 +6,7 @@ function AppHeader({ liked, allPosts, important }) {
     <div className="app-header d-flex">
       <h1>Ivan Holub</h1>
       <h2>
-        <b>{allPosts}</b> поста, из них понравилось <b>{liked}</b>, выжных{" "}
+        <b>{allPosts}</b> поста, из них понравилось <b>{liked}</b>, избранных{" "}
         <b>{important}</b>
       </h2>
     </div>

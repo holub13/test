@@ -6,39 +6,43 @@ import PostList from "../post-list/post-list";
 import PostAddForm from "../post-add-form/post-add-form";
 
 export default function App() {
-  const [data, setData] = useState([
-    {
-      label: "Going to learn React",
-      important: false,
-      like: false,
-      id: "qweqwe"
-    },
-    {
-      label: "That's Ok",
-      important: false,
-      like: false,
-      id: "qdfg"
-    },
-    {
-      label: "I wanna change my life...",
-      like: false,
-      important: false,
-      id: "vbnvbn"
-    }
-  ]);
+  const [state, setData] = useState({
+    data: [
+      {
+        label: "Going to learn React",
+        important: false,
+        like: false,
+        id: "qweqwe"
+      },
+      {
+        label: "That's Ok",
+        important: false,
+        like: false,
+        id: "qdfg"
+      },
+      {
+        label: "I wanna change my life...",
+        like: false,
+        important: false,
+        id: "vbnvbn"
+      }
+    ],
+    term: "",
+    filter: "all"
+  });
   let classNames = "app-list-item d-flex justify-content-between";
-
+  const { data, term, filter } = state;
   const addPost = (value) => {
     const newData = [
       ...data,
       { label: value, important: false, like: false, id: Math.random() }
     ];
-    setData(newData);
+    setData({ data: newData, term, filter });
   };
 
   const deletePost = (id) => {
     const filteredList = data.filter((item) => item.id !== id);
-    setData(filteredList);
+    setData({ data: filteredList, term });
   };
 
   function onToggleImportant(id) {
@@ -50,7 +54,7 @@ export default function App() {
       importantPost,
       ...data.slice(index + 1)
     ];
-    setData(newData);
+    setData({ data: newData, term });
   }
   function onToggleLike(id) {
     const index = data.findIndex((elem) => elem.id === id);
@@ -61,20 +65,34 @@ export default function App() {
       likedPost,
       ...data.slice(index + 1)
     ];
-    setData(newData);
+    setData({ data: newData, term });
   }
   const liked = data.filter((item) => item.like).length;
   const important = data.filter((item) => item.important).length;
   const allPosts = data.length;
 
+  function searchPost(items, term) {
+    if (term.length === 0) {
+      return items;
+    }
+    const newData = items.filter((item) => {
+      return item.label.indexOf(term) > -1;
+    });
+    return newData;
+  }
+  const visiblePosts = searchPost(data, term);
+
+  function onSearch(text) {
+    setData({ data, term: text });
+  }
   return (
     <div className="app">
       <AppHeader liked={liked} important={important} allPosts={allPosts} />
-      <SearchPanel />
+      <SearchPanel filter={filter} searchUpdate={onSearch} />
       <PostList
-        posts={data}
+        posts={visiblePosts}
+        // posts={data}
         onDeletePost={deletePost}
-        // onAddPost={addPost}
         onToggleImportant={onToggleImportant}
         onToggleLike={onToggleLike}
         classNames={classNames}
