@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./app.css";
 import AppHeader from "../app-header/app-header";
 import SearchPanel from "../search-panel/search-panel";
@@ -30,6 +30,9 @@ export default function App() {
     term: "",
     filter: "all"
   });
+
+  useEffect(() => console.log("UPDATE!!!"));
+
   let classNames = "app-list-item d-flex justify-content-between";
   const { data, term, filter } = state;
   const addPost = (value) => {
