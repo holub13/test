@@ -1,27 +1,27 @@
 import React from "react";
 
-export default function PostStatusFilter({ filter }) {
-  console.log(filter);
+export default function PostStatusFilter({ filter, onFilterSelect }) {
   const buttons = [
     { name: "all", label: "All" },
-    { name: "like", label: "Likes" }
+    { name: "like", label: "Like" },
+    { name: "important", label: "Important" }
   ];
-  const btn = buttons.map(({ name, label }) => {
-    return (
-      <button key={name} type="button" className="btn btn-primary">
-        {label}
-      </button>
-    );
-  });
   return (
     <div className="btn-group">
-      {btn}
-      {/* <button type="button" className="btn btn-primary">
-        All
-      </button>
-      <button type="button" className="btn btn-outline-secondary">
-        Likes
-      </button> */}
+      {buttons.map(({ name, label }) => {
+        const active = filter === name;
+        const activeClass = active ? "btn-primary" : "btn-outline-secondary";
+        return (
+          <button
+            key={name}
+            type="button"
+            className={`btn ${activeClass}`}
+            onClick={() => onFilterSelect(name)}
+          >
+            {label}
+          </button>
+        );
+      })}
     </div>
   );
 }

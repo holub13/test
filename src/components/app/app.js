@@ -42,7 +42,7 @@ export default function App() {
 
   const deletePost = (id) => {
     const filteredList = data.filter((item) => item.id !== id);
-    setData({ data: filteredList, term });
+    setData({ data: filteredList, term, filter });
   };
 
   function onToggleImportant(id) {
@@ -54,7 +54,7 @@ export default function App() {
       importantPost,
       ...data.slice(index + 1)
     ];
-    setData({ data: newData, term });
+    setData({ data: newData, term, filter });
   }
   function onToggleLike(id) {
     const index = data.findIndex((elem) => elem.id === id);
@@ -65,7 +65,7 @@ export default function App() {
       likedPost,
       ...data.slice(index + 1)
     ];
-    setData({ data: newData, term });
+    setData({ data: newData, term, filter });
   }
   const liked = data.filter((item) => item.like).length;
   const important = data.filter((item) => item.important).length;
@@ -80,18 +80,36 @@ export default function App() {
     });
     return newData;
   }
-  const visiblePosts = searchPost(data, term);
+  const visiblePosts = filterPost(searchPost(data, term), filter);
 
   function onSearch(text) {
-    setData({ data, term: text });
+    setData({ data, term: text, filter });
   }
+
+  function filterPost(items, filter) {
+    if (filter === "like") {
+      return items.filter((item) => item.like);
+    }
+    if (filter === "important") {
+      return items.filter((item) => item.important);
+    } else {
+      return items;
+    }
+  }
+  function onFilterSelect(filter) {
+    setData({ data, term, filter });
+  }
+
   return (
     <div className="app">
       <AppHeader liked={liked} important={important} allPosts={allPosts} />
-      <SearchPanel filter={filter} searchUpdate={onSearch} />
+      <SearchPanel
+        filter={filter}
+        searchUpdate={onSearch}
+        onFilterSelect={onFilterSelect}
+      />
       <PostList
         posts={visiblePosts}
-        // posts={data}
         onDeletePost={deletePost}
         onToggleImportant={onToggleImportant}
         onToggleLike={onToggleLike}
